@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from tkinter.font import BOLD
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inicio',
-    'registros.apps.RegistrosConfig'
+    'registros.apps.RegistrosConfig',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+#Ckeditor
+
+CKEDITOR_CONFIGS={
+    'default':{
+        'toolbar':'Custom',
+        'toolbar_Custom':[
+            ['Bold','Italic','Underline'],
+            ['NumberedList','BulletedList','-','Outdent','Indent','-'
+            ,'JustifyLeft','JustifyCenter','JustifyRigth','JustifyBlock'],
+            ['Link','Unlink',],
+            ['RemoveFormat','Source']
+        ]
+    }
+}
