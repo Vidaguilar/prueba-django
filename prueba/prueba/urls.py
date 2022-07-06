@@ -26,6 +26,7 @@ urlpatterns = [
     path('formulario/',views.formulario, name="formulario"),
      path('ejem/',views.ejemplo, name="ejemplo"),
     path('registrar/',views_registros.registrar,name="Registrar"),
+    path('ver/',views_registros.coments, name="coments")
 ]
 if settings.DEBUG:
     from django.conf.urls.static import static

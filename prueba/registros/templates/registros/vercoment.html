@@ -1,0 +1,54 @@
+{% extends 'inicio/encabezado.html' %}
+{% block titulo %}
+<h1>Principal</h1>
+{% endblock titulo %}
+
+{% block imagen %}
+{% load static %}
+{%static 'inicio/imagenes/home.png' %}
+{% endblock  %}
+{% block encabezado %}
+<!--Encabezdo -->
+<div class="page-header">
+    <div class="page-title">
+        <h3>comentarioContactos
+        <small>Lista de comentarioContactos 9A</small></h3>
+    </div>
+
+    
+</div>
+{% endblock  %}
+
+{% block  contenido %}
+
+<table class="table table-bordered tablestriped">
+    <thead>
+    <tr>
+    <th>Usuario</th>
+    <th>Mensaje</th>
+    <th></th>
+    <th></th>
+    
+    </tr>
+    </thead>
+    <tbody>
+        {% for comentarioContacto in comentariocontactos %}
+            <tr>
+           
+           
+            <td class="muted">{{comentarioContacto.usuario}}</td>
+            <td class="muted">{{comentarioContacto.mensaje}}</td>
+            <td>Editar</td>
+            <td>Eliminar</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    
+    
+
+
+
+
+
+{% endblock  %}
