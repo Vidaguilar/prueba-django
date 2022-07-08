@@ -33,6 +33,17 @@ def eliminarComentarioContacto(request,id,confimacion='registros/conel.html'):
         return render(request,"registros/vercoment.html",{'comentariocontactos':comentarioContacto})
     return render (request, confimacion,{'object':comentario})
 
-def editar(request,id,edit='registros/edit.html'):
+def editar(request,id,):
     comentario = get_object_or_404(ComentarioContacto,id=id)
     return render(request,"registros/edit.html",{'comentario':comentario})
+
+def editarcom(request,id,):
+    comentario = get_object_or_404(ComentarioContacto,id=id)
+    form= ComentarioContactoForm(request.POST,instance=comentario)
+    if form.is_valid():
+        form.save()
+        comentarios=ComentarioContacto.objects.all()
+        return render(request,"registros/vercoment.html",{'comentariocontactos':comentarios})
+    return render(request,"registros/edit.html",{'comentario':comentario})
+    
+
