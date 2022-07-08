@@ -1,0 +1,39 @@
+{% extends 'inicio/encabezado.html' %}
+
+{% block titulo %}
+<h1>Eliminar</h1>
+{% endblock titulo %}
+
+{% block imagen %}
+{% load static %}
+{%static 'inicio/imagenes/home.png' %}
+{% endblock  %}
+{% block encabezado %}
+<div class="page-header">
+    <div class="page-title">
+        <h3>Eliminar Usuario
+        <small>Ingresa tu información</small></h3>
+    </div>
+
+    
+    
+</div>
+{% endblock  %}
+{% block contenido %}
+
+
+
+ <form method="POST" role="form">
+    {%csrf_token%}
+    <div class="callout callout-danger fade in ">
+         <h5>Eliminando</h5>
+         <p>
+            estas seguro
+         </p>
+    </div>
+    <button type="Submit"  class="btn btn-danger" >Si</button>
+    <a href="{%url 'Principal'%}" class="btn btn-primary" >Cancelar</a>
+</form>
+ 
+
+    {% endblock  %}

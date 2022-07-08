@@ -29,7 +29,10 @@ urlpatterns = [
     path('ver/',views_registros.coments, name="coments"),
     path("condel/<int:id>/",views_registros.eliminarComentarioContacto, name="Eliminar"),
     path("edit/<int:id>/",views_registros.editar, name="Editar"),
-    path("editar/<int:id>/",views_registros.editarcom, name="Editarcom")
+    path("editar/<int:id>/",views_registros.editarcom, name="Editarcom"),
+    path("condel2/<matricula>/",views_registros.eliminaralumno, name="Eliminaral"),
+    path("edital/<matricula>/",views_registros.editaral, name="Editaral"),
+    path("editaralum/<matricula>/",views_registros.editaralum, name="Editaralu"),
 ]
 if settings.DEBUG:
     from django.conf.urls.static import static
