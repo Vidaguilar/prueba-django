@@ -27,7 +27,8 @@ urlpatterns = [
      path('ejem/',views.ejemplo, name="ejemplo"),
     path('registrar/',views_registros.registrar,name="Registrar"),
     path('ver/',views_registros.coments, name="coments"),
-    path("condel/<int:id>/",views_registros.eliminarComentarioContacto, name="Eliminar")
+    path("condel/<int:id>/",views_registros.eliminarComentarioContacto, name="Eliminar"),
+    path("edit/<int:id>/",views_registros.editar, name="Editar")
 ]
 if settings.DEBUG:
     from django.conf.urls.static import static

@@ -32,3 +32,7 @@ def eliminarComentarioContacto(request,id,confimacion='registros/conel.html'):
         comentarioContacto=ComentarioContacto.objects.all()
         return render(request,"registros/vercoment.html",{'comentariocontactos':comentarioContacto})
     return render (request, confimacion,{'object':comentario})
+
+def editar(request,id,edit='registros/edit.html'):
+    comentario = get_object_or_404(ComentarioContacto,id=id)
+    return render(request,"registros/edit.html",{'comentario':comentario})

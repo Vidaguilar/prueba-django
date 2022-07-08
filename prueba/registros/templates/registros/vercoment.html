@@ -38,7 +38,7 @@
            
             <td class="muted">{{comentarioContacto.usuario}}</td>
             <td class="muted">{{comentarioContacto.mensaje}}</td>
-            <td>Editar</td>
+            <td><a href="{% url 'Editar' comentarioContacto.id%}">Editar</a></td>
             <td><a href="{% url 'Eliminar' comentarioContacto.id%}">Eliminar</a></td>
             </tr>
         {% endfor %}
