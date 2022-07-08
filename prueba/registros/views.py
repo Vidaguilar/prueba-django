@@ -1,11 +1,34 @@
 from django.shortcuts import render
 from .models import Alumnos, Comentario, ComentarioContacto 
 from .forms import ComentarioContactoForm
+from .forms import AlumnosForm
 from django.shortcuts import get_object_or_404
 # Create your views here.
 def registros(request):
  alumnos=Alumnos.objects.all()
  return render(request,"registros/principal.html",{'alumnos':alumnos})
+
+
+def eliminaralumno(request,matricula,confimacion='registros/conel2.html'):
+    alumno = get_object_or_404(Alumnos, matricula=matricula)
+    if request.method=='POST':
+        alumno.delete()
+        alumnos=Alumnos.objects.all()
+        return render(request,"registros/principal.html",{'alumno':alumnos})
+    return render (request, confimacion,{'object':alumno})
+
+def editaral(request,matricula,):
+    alumno = get_object_or_404(Alumnos,matricula=matricula)
+    return render(request,"registros/edital.html",{'alumno':alumno})
+
+def editaralum(request,matricula,):
+    alumno = get_object_or_404(Alumnos,matricula=matricula)
+    form= AlumnosForm(request.POST,instance=alumno)
+    if form.is_valid():
+        form.save()
+        alumnos=Alumnos.objects.all()
+        return render(request,"registros/principal.html",{'alumnos':alumnos})
+    return render(request,"registros/edital.html",{'alumno':alumno})
 
 def registrar(request):
     if request.method == 'POST':

@@ -41,6 +41,8 @@
             <td class="muted">{{alumno.nombre}}</td>
             <td class="muted">{{alumno.carrera}}</td>
             <td class="muted">{{alumno.turno}}</td>
+            <td><a href="{% url 'Editaral' alumno.matricula%}">Editar</a></td>
+            <td><a href="{% url 'Eliminaral' alumno.matricula%}">Eliminar</a></td>
             </tr>
         {% endfor %}
     </tbody>
