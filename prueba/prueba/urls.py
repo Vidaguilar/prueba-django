@@ -33,6 +33,15 @@ urlpatterns = [
     path("condel2/<matricula>/",views_registros.eliminaralumno, name="Eliminaral"),
     path("edital/<matricula>/",views_registros.editaral, name="Editaral"),
     path("editaralum/<matricula>/",views_registros.editaralum, name="Editaralu"),
+    path("con1/",views_registros.consulta1,name="Consultas"),
+    path("con2/",views_registros.consulta2,name="Consultas2"),
+    path("con3/",views_registros.consulta3,name="Consultas3"),
+    path("con4/",views_registros.consulta4,name="Consultas4"),
+    path("con5/",views_registros.consulta5,name="Consultas5"),
+    path("con6/",views_registros.consulta6,name="Consultas6"),
+    path("con7/",views_registros.consulta7,name="Consultas7"),
+    path('subir',views_registros.archivos,name="Subir"),
+     path("consultasQL/",views_registros.consultasSQL,name="sql"),
 ]
 if settings.DEBUG:
     from django.conf.urls.static import static

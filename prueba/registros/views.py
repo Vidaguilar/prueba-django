@@ -1,20 +1,49 @@
+from ctypes.wintypes import BYTE
 from django.shortcuts import render
-from .models import Alumnos, Comentario, ComentarioContacto 
+from .models import Alumnos, Archivos, Comentario, ComentarioContacto 
 from .forms import ComentarioContactoForm
 from .forms import AlumnosForm
 from django.shortcuts import get_object_or_404
+import datetime
+from .models import Archivos 
+from .forms import FormArchivo
+from django.contrib import messages
+
 # Create your views here.
 def registros(request):
  alumnos=Alumnos.objects.all()
  return render(request,"registros/principal.html",{'alumnos':alumnos})
 
+def consulta1(request):
+ alumnos=Alumnos.objects.filter(carrera="TI")
+ return render(request,"registros/consultas.html",{'alumnos':alumnos})
 
+def consulta2(request):
+ alumnos=Alumnos.objects.filter(carrera="TI").filter(turno="Matutino")
+ return render(request,"registros/consultas.html",{'alumnos':alumnos})
+def consulta3(request):
+ alumnos=Alumnos.objects.all().only("matricula","nombre","carrera","turno","imagen")
+ return render(request,"registros/consultas.html",{'alumnos':alumnos})
+def consulta4(request):
+ alumnos=Alumnos.objects.filter(turno__contains='Vesp')
+ return render(request,"registros/consultas.html",{'alumnos':alumnos})
+def consulta5(request):
+ alumnos=Alumnos.objects.filter(nombre__in=["Juan","Ana"])
+ return render(request,"registros/consultas.html",{'alumnos':alumnos})
+def consulta6(request):
+ fechai=datetime.date(2022,7,1)
+ fecha=datetime.date(2022,7,15)
+ alumnos=Alumnos.objects.filter(created__range=(fechai,fecha))
+ return render(request,"registros/consultas.html",{'alumnos':alumnos})
+def consulta7(request):
+ alumnos=Alumnos.objects.filter(comentario__coment__contains="es un")
+ return render(request,"registros/consultas.html",{'alumnos':alumnos})
 def eliminaralumno(request,matricula,confimacion='registros/conel2.html'):
     alumno = get_object_or_404(Alumnos, matricula=matricula)
     if request.method=='POST':
         alumno.delete()
         alumnos=Alumnos.objects.all()
-        return render(request,"registros/principal.html",{'alumno':alumnos})
+        return render(request,"registros/principal.html",{'alumnos':alumnos})
     return render (request, confimacion,{'object':alumno})
 
 def editaral(request,matricula,):
@@ -68,5 +97,21 @@ def editarcom(request,id,):
         comentarios=ComentarioContacto.objects.all()
         return render(request,"registros/vercoment.html",{'comentariocontactos':comentarios})
     return render(request,"registros/edit.html",{'comentario':comentario})
-    
 
+def archivos(request):
+    if request.method =='POST':
+        form=FormArchivo(request.POST, request.FILES)
+        if form.is_valid():
+            titulo=request.POST['titulo']
+            descripcion=request.POST['descripcion']
+            archivo=request.FILES['archivo']
+            insert= Archivos(titulo=titulo,descripcion=descripcion,archivo=archivo)
+            insert.save()
+            return render (request,"registros/archivos.html")
+        else:
+            messages.error(request,"Error el Procesar el formulario")
+    else:
+     return render (request,"registros/archivos.html",{'archivo':Archivos})
+def consultasSQL(request):
+    alumnos=Alumnos.objects.raw('SELECT id, matricula , nombre, carrera, turno, imagen FROM registros_alumnos where carrera="TI" ORDER BY turno DESC')   
+    return render(request,"registros/consultas.html",{'alumnos':alumnos})

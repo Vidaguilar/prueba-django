@@ -40,4 +40,16 @@ class ComentarioContacto(models.Model):
         ordering = ["-created"]
         def __str__(self):
          return self.mensaje
-     
+class Archivos(models.Model): #Define la estructura de nuestra tabla
+    id = models.AutoField(primary_key=True,verbose_name="Clave")
+    titulo = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=100)
+    archivo = models.FileField(null=True,upload_to="archivos",blank=True)
+    created = models.DateTimeField(auto_now_add=True) #Fecha y tiempo
+    updated = models.DateTimeField(auto_now_add=True)
+    class Meta:
+         verbose_name = "Archivo"
+         verbose_name_plural = "Archivos"
+         ordering = ["-created"] 
+    def __str__(self):
+         return self.titulo   

@@ -1,0 +1,57 @@
+{% extends 'inicio/encabezado.html' %}
+{% block titulo %}
+<h1>Principal</h1>
+{% endblock titulo %}
+
+{% block imagen %}
+{% load static %}
+{%static 'inicio/imagenes/home.png' %}
+{% endblock  %}
+{% block encabezado %}
+<!--Encabezdo -->
+<div class="page-header">
+    <div class="page-title">
+        <h3>Alumnos
+        <small>Lista de Alumnos 9A</small></h3>
+    </div>
+
+    
+</div>
+{% endblock  %}
+
+{% block  contenido %}
+
+<table class="table table-bordered tablestriped">
+    <thead>
+    <tr>
+    <th>Foto</th>
+    <th>Matricula</th>
+    <th>Nombre</th>
+    <th>Carrera</th>
+    <th>Turno</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for alumno in alumnos %}
+            <tr>
+            <td class="text-center">
+            <img src="{{alumno.imagen.url}}" alt="" class="img-media">
+            </td>
+            <td class="text-semibold">{{alumno.matricula}}</td>
+            <td class="muted">{{alumno.nombre}}</td>
+            <td class="muted">{{alumno.carrera}}</td>
+            <td class="muted">{{alumno.turno}}</td>
+            <td><a href="{% url 'Editaral' alumno.matricula%}">Editar</a></td>
+            <td><a href="{% url 'Eliminaral' alumno.matricula%}">Eliminar</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    
+    
+
+
+
+
+
+{% endblock  %}
