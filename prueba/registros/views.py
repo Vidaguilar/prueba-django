@@ -1,9 +1,13 @@
+from ctypes.wintypes import BYTE
 from django.shortcuts import render
-from .models import Alumnos, Comentario, ComentarioContacto 
+from .models import Alumnos, Archivos, Comentario, ComentarioContacto 
 from .forms import ComentarioContactoForm
 from .forms import AlumnosForm
 from django.shortcuts import get_object_or_404
 import datetime
+from .models import Archivos 
+from .forms import FormArchivo
+from django.contrib import messages
 
 # Create your views here.
 def registros(request):
@@ -93,5 +97,21 @@ def editarcom(request,id,):
         comentarios=ComentarioContacto.objects.all()
         return render(request,"registros/vercoment.html",{'comentariocontactos':comentarios})
     return render(request,"registros/edit.html",{'comentario':comentario})
-    
 
+def archivos(request):
+    if request.method =='POST':
+        form=FormArchivo(request.POST, request.FILES)
+        if form.is_valid():
+            titulo=request.POST['titulo']
+            descripcion=request.POST['descripcion']
+            archivo=request.FILES['archivo']
+            insert= Archivos(titulo=titulo,descripcion=descripcion,archivo=archivo)
+            insert.save()
+            return render (request,"registros/archivos.html")
+        else:
+            messages.error(request,"Error el Procesar el formulario")
+    else:
+     return render (request,"registros/archivos.html",{'archivo':Archivos})
+def consultasSQL(request):
+    alumnos=Alumnos.objects.raw('SELECT id, matricula , nombre, carrera, turno, imagen FROM registros_alumnos where carrera="TI" ORDER BY turno DESC')   
+    return render(request,"registros/consultas.html",{'alumnos':alumnos})
