@@ -41,7 +41,9 @@ urlpatterns = [
     path("con6/",views_registros.consulta6,name="Consultas6"),
     path("con7/",views_registros.consulta7,name="Consultas7"),
     path('subir',views_registros.archivos,name="Subir"),
-     path("consultasQL/",views_registros.consultasSQL,name="sql"),
+    path("consultasQL/",views_registros.consultasSQL,name="sql"),
+    path("sec/",views_registros.seguridad,name="Seguridad"),
+
 ]
 if settings.DEBUG:
     from django.conf.urls.static import static
